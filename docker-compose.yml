@@ -14,12 +14,10 @@ services:
       - postgres-data:/var/lib/postgresql/data
 
   node-express:
-    image: node:18
+    build:
+      context: ./node-express
     container_name: node-express
     working_dir: /usr/src/app
-    volumes:
-      - ./node-express:/usr/src/app
-    command: sh -c "npm install && npm start"
     ports:
       - "3001:3000"
     environment:
@@ -28,12 +26,10 @@ services:
       - postgres
 
   nextjs:
-    image: node:18
+    build:
+      context: ./nextjs
     container_name: nextjs
     working_dir: /usr/src/app
-    volumes:
-      - ./nextjs:/usr/src/app
-    command: sh -c "npm install && npm run dev"
     ports:
       - "3000:3000"
     depends_on:
